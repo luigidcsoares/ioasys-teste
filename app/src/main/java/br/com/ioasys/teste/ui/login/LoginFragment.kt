@@ -1,11 +1,13 @@
 package br.com.ioasys.teste.ui.login
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import br.com.ioasys.teste.R
 
 class LoginFragment : Fragment() {
@@ -20,6 +22,10 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Set the login status bar color.
+        activity?.window?.statusBarColor =
+            ContextCompat.getColor(context as Context, R.color.black_23)
+
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
