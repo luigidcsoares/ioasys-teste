@@ -32,7 +32,7 @@
 		{
 			"id": "059ada35-26ba-3c61-aa98-2a364ed43e81",
 			"headers": "Content-Type: application/json\n//access-token: {{access-token}}\n//client: {{client}}\n//uid: {{uid}}\n",
-			"url": "{{dev_host}}/api/{{api_version}}/users/auth/sign_in",
+			"url": "{{dev_host}}/api/{{api_version}}/users/authRequest/sign_in",
 			"pathVariables": [],
 			"preRequestScript": null,
 			"method": "POST",

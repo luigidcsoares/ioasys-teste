@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import br.com.ioasys.teste.R
+import br.com.ioasys.teste.data.AuthRequest
+import br.com.ioasys.teste.utils.Injector
+import com.google.android.material.textfield.TextInputEditText
 
 class LoginFragment : Fragment() {
 
@@ -31,8 +35,17 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        // Create the view model using a factory.
+        viewModel = ViewModelProviders.of(this, Injector.provideLoginViewModelFactory())
+            .get(LoginViewModel::class.java)
+
+        val emailField = activity?.findViewById<TextInputEditText>(R.id.login_email)
+        val passwordField = activity?.findViewById<TextInputEditText>(R.id.login_password)
+
+        activity?.findViewById<Button>(R.id.login_button)?.setOnClickListener {
+            viewModel.auth(AuthRequest(emailField?.text.toString(), passwordField?.text.toString()))
+        }
     }
 
 }
