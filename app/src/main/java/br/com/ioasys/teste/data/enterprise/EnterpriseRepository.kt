@@ -1,4 +1,4 @@
-package br.com.ioasys.teste.data
+package br.com.ioasys.teste.data.enterprise
 
 import br.com.ioasys.teste.api.EnterpriseService
 import retrofit2.Call
@@ -6,9 +6,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object EnterpriseRepository {
-    fun enterprises(name: String) {
-        val service = EnterpriseService.getInstance()
-        val call = service.enterprises(name)
+    fun search(name: String) {
+        val service = EnterpriseService.retrofit
+        val call = service.search(name)
 
         call.enqueue(object: Callback<EnterpriseList> {
             override fun onFailure(call: Call<EnterpriseList>, t: Throwable) {

@@ -1,4 +1,4 @@
-package br.com.ioasys.teste.data
+package br.com.ioasys.teste.data.auth
 
 data class AuthRequest(
     val email: String,

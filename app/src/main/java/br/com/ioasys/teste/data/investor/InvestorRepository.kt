@@ -1,17 +1,19 @@
-package br.com.ioasys.teste.data
+package br.com.ioasys.teste.data.investor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.ioasys.teste.api.EnterpriseInterceptor
 import br.com.ioasys.teste.api.EnterpriseService
+import br.com.ioasys.teste.data.auth.AuthRequest
+import br.com.ioasys.teste.data.auth.AuthResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object UserRepository {
+object InvestorRepository {
 
     fun auth(authRequest: AuthRequest): LiveData<AuthResponse> {
-        val service = EnterpriseService.getInstance()
+        val service = EnterpriseService.retrofit
         val call = service.auth(authRequest)
 
         val authResponse = MutableLiveData<AuthResponse>()
@@ -22,7 +24,10 @@ object UserRepository {
             }
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                authResponse.value = response.body() ?: AuthResponse(null, response.isSuccessful)
+                authResponse.value = response.body() ?: AuthResponse(
+                    null,
+                    response.isSuccessful
+                )
 
                 // If it was successful, add custom headers to subsequent requests.
                 if (response.isSuccessful) {

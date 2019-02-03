@@ -1,4 +1,4 @@
-package br.com.ioasys.teste.data
+package br.com.ioasys.teste.data.investor
 
 data class Investor(
     val id: Int = -1,
