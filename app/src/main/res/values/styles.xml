@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/medium_pink</item>
-        <item name="colorPrimaryDark">@color/night_blue</item>
+        <item name="colorPrimaryDark">@color/black_23</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/beige</item>
     </style>

@@ -5,8 +5,8 @@ import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.investor.InvestorRepository
 
 @Suppress("UNCHECKED_CAST")
-class LoginViewModel(private val userRepository: InvestorRepository)
+class LoginViewModel(private val investorRepository: InvestorRepository)
     : ViewModel() {
 
-    fun auth(authRequest: AuthRequest) = userRepository.auth(authRequest)
+    fun auth(authRequest: AuthRequest) = investorRepository.auth(authRequest)
 }

@@ -1,6 +1,5 @@
 package br.com.ioasys.teste.ui.login
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,20 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import br.com.ioasys.teste.R
 import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.auth.AuthResponse
-import br.com.ioasys.teste.data.enterprise.EnterpriseRepository
 import br.com.ioasys.teste.utils.Injector
 import com.google.android.material.textfield.TextInputEditText
 
 class LoginFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LoginFragment()
-    }
 
     private lateinit var viewModel: LoginViewModel
 
@@ -30,10 +24,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Set the login status bar color.
-        activity?.window?.statusBarColor =
-            ContextCompat.getColor(context as Context, R.color.black_23)
-
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
@@ -48,20 +38,16 @@ class LoginFragment : Fragment() {
         val passwordField = activity?.findViewById<TextInputEditText>(R.id.login_password)
 
         activity?.findViewById<Button>(R.id.login_button)?.setOnClickListener {
-            viewModel.auth(
-                AuthRequest(
-                    emailField?.text.toString(),
-                    passwordField?.text.toString()
-                )
-            )
-                .observe(activity!!, Observer<AuthResponse> {
-                    if (it.success) {
-                        Toast.makeText(activity, "BOAAAAAAA", Toast.LENGTH_LONG).show()
-                        EnterpriseRepository.search("aQm")
-                    } else {
-                        Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
-                    }
-                })
+            viewModel.auth(AuthRequest(
+                emailField?.text.toString(),
+                passwordField?.text.toString()
+            )).observe(activity!!, Observer<AuthResponse> {
+                if (it.success) {
+                    findNavController().navigate(R.id.action_login)
+                } else {
+                    Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
+                }
+            })
         }
     }
 
