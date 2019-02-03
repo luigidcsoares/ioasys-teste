@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import br.com.ioasys.teste.R
 import br.com.ioasys.teste.data.AuthRequest
+import br.com.ioasys.teste.data.AuthResponse
 import br.com.ioasys.teste.utils.Injector
 import com.google.android.material.textfield.TextInputEditText
 
@@ -45,6 +48,13 @@ class LoginFragment : Fragment() {
 
         activity?.findViewById<Button>(R.id.login_button)?.setOnClickListener {
             viewModel.auth(AuthRequest(emailField?.text.toString(), passwordField?.text.toString()))
+                .observe(activity!!, Observer<Pair<AuthResponse, Map<String, String?>>> {
+                    if (it.first.success) {
+                        Toast.makeText(activity, "BOAAAAAAAAAAAAA", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
+                    }
+                })
         }
     }
 

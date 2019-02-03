@@ -8,8 +8,5 @@ import br.com.ioasys.teste.data.UserRepository
 class LoginViewModel(private val userRepository: UserRepository)
     : ViewModel() {
 
-    fun auth(authRequest: AuthRequest) {
-        android.util.Log.i("USUARIO", authRequest.toString())
-        userRepository.auth(authRequest)
-    }
+    fun auth(authRequest: AuthRequest) = userRepository.auth(authRequest)
 }
