@@ -1,9 +1,8 @@
 package br.com.ioasys.teste.api
 
-import br.com.ioasys.teste.data.AuthRequest
-import br.com.ioasys.teste.data.AuthResponse
-import br.com.ioasys.teste.data.Enterprise
-import br.com.ioasys.teste.data.EnterpriseList
+import br.com.ioasys.teste.data.auth.AuthRequest
+import br.com.ioasys.teste.data.auth.AuthResponse
+import br.com.ioasys.teste.data.enterprise.EnterpriseList
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -19,21 +18,18 @@ interface EnterpriseService {
     fun auth(@Body authRequest: AuthRequest): Call<AuthResponse>
 
     @GET("enterprises")
-    fun enterprises(@Query("name") name: String): Call<EnterpriseList>
+    fun search(@Query("name") name: String): Call<EnterpriseList>
 
-    // A singleton object for Enterprise Retrofit service
+    // A singleton object for Enterprise Retrofit service.
     companion object {
-        @Volatile private var instance: EnterpriseService? = null
         private const val BASE_URL = "http://empresas.ioasys.com.br/api/v1/"
+        val retrofit: EnterpriseService by lazy { create() }
 
-        fun getInstance(): EnterpriseService = instance ?: synchronized(this) {
-            instance ?: build().create(EnterpriseService::class.java).also { instance = it }
-        }
-
-        private fun build() = Retrofit.Builder()
+        private fun create() = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(OkHttpClient.Builder().addInterceptor(EnterpriseInterceptor).build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(EnterpriseService::class.java)
     }
 }
