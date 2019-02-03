@@ -9,6 +9,6 @@
         <action android:id="@+id/action_login" app:destination="@id/searchFragment"
                 app:exitAnim="@anim/nav_default_exit_anim" app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
-    <fragment android:id="@+id/searchFragment" android:name="br.com.ioasys.teste.ui.search.SearchFragment"
+    <fragment android:id="@+id/searchFragment" android:name="br.com.ioasys.teste.ui.home.HomeFragment"
               android:label="SearchFragment"/>
 </navigation>

@@ -1,4 +1,4 @@
-package br.com.ioasys.teste.ui.search
+package br.com.ioasys.teste.ui.home
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
@@ -11,13 +11,13 @@ import androidx.core.content.ContextCompat
 import br.com.ioasys.teste.R
 
 
-class SearchFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance() = HomeFragment()
     }
 
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,12 +27,12 @@ class SearchFragment : Fragment() {
         activity?.window?.statusBarColor =
             ContextCompat.getColor(context as Context, R.color.night_blue)
 
-        return inflater.inflate(R.layout.search_fragment, container, false)
+        return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

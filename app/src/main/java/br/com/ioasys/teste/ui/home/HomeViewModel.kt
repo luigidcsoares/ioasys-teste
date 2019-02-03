@@ -1,7 +1,7 @@
-package br.com.ioasys.teste.ui.search
+package br.com.ioasys.teste.ui.home
 
 import androidx.lifecycle.ViewModel;
 
-class SearchViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
