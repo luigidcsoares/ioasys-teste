@@ -10,12 +10,13 @@ object EnterpriseInterceptor : Interceptor {
     var uid: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request().newBuilder()
+        val request = chain.request()
+        val builder = request.newBuilder()
 
-        // Add headers if they're not null.
-        accessToken?.let { builder.header("access-token", it) }
-        client?.let { builder.header("client", it) }
-        uid?.let { builder.header("uid", it) }
+        // Add headers if they're null.
+        request.header("access-token") ?: accessToken?.let { builder.header("access-token", it) }
+        request.header("client") ?: client?.let { builder.header("client", it) }
+        request.header("uid") ?: uid?.let { builder.header("uid", it) }
 
         return chain.proceed(builder.build())
     }
