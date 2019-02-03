@@ -1,11 +1,11 @@
 package br.com.ioasys.teste.ui.login
 
 import androidx.lifecycle.ViewModel
-import br.com.ioasys.teste.data.AuthRequest
-import br.com.ioasys.teste.data.UserRepository
+import br.com.ioasys.teste.data.auth.AuthRequest
+import br.com.ioasys.teste.data.investor.InvestorRepository
 
 @Suppress("UNCHECKED_CAST")
-class LoginViewModel(private val userRepository: UserRepository)
+class LoginViewModel(private val userRepository: InvestorRepository)
     : ViewModel() {
 
     fun auth(authRequest: AuthRequest) = userRepository.auth(authRequest)
