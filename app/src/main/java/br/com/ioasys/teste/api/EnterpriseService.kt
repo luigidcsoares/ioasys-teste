@@ -3,6 +3,7 @@ package br.com.ioasys.teste.api
 import br.com.ioasys.teste.data.AuthRequest
 import br.com.ioasys.teste.data.AuthResponse
 import br.com.ioasys.teste.data.Enterprise
+import br.com.ioasys.teste.data.EnterpriseList
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -18,7 +19,7 @@ interface EnterpriseService {
     fun auth(@Body authRequest: AuthRequest): Call<AuthResponse>
 
     @GET("enterprises")
-    fun enterprises(@Query("name") name: String): Call<List<Enterprise>>
+    fun enterprises(@Query("name") name: String): Call<EnterpriseList>
 
     // A singleton object for Enterprise Retrofit service
     companion object {
@@ -31,8 +32,8 @@ interface EnterpriseService {
 
         private fun build() = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().addInterceptor(EnterpriseInterceptor).build())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }

@@ -2,8 +2,8 @@ package br.com.ioasys.teste.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.ioasys.teste.api.EnterpriseInterceptor
 import br.com.ioasys.teste.api.EnterpriseService
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +26,9 @@ object UserRepository {
 
                 // If it was successful, add custom headers to subsequent requests.
                 if (response.isSuccessful) {
-
+                    EnterpriseInterceptor.accessToken = response.headers().get("access-token")
+                    EnterpriseInterceptor.client = response.headers().get("client")
+                    EnterpriseInterceptor.uid = response.headers().get("uid")
                 }
             }
         })
