@@ -2,13 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/graph"
-            app:startDestination="@id/loginFragment">
+            app:startDestination="@id/login_fragment">
 
-    <fragment android:id="@+id/loginFragment" android:name="br.com.ioasys.teste.ui.login.LoginFragment"
-              android:label="login_fragment" tools:layout="@layout/login_fragment">
-        <action android:id="@+id/action_login" app:destination="@id/searchFragment"
-                app:exitAnim="@anim/nav_default_exit_anim" app:enterAnim="@anim/nav_default_enter_anim"/>
+    <fragment android:id="@+id/login_fragment" android:name="br.com.ioasys.teste.ui.login.LoginFragment"
+              android:label="loginFragment" tools:layout="@layout/login_fragment">
+
+        <action android:id="@+id/action_login" app:destination="@+id/home_fragment"
+                app:exitAnim="@anim/nav_default_exit_anim" app:enterAnim="@anim/nav_default_enter_anim"
+                app:popUpTo="@id/graph"
+                app:popUpToInclusive="true"/>
     </fragment>
-    <fragment android:id="@+id/searchFragment" android:name="br.com.ioasys.teste.ui.home.HomeFragment"
-              android:label="SearchFragment"/>
+
+    <fragment android:id="@+id/home_fragment" android:name="br.com.ioasys.teste.ui.home.HomeFragment"
+              android:label="homeFragment"/>
 </navigation>

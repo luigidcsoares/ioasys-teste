@@ -7,4 +7,6 @@
     <string name="login_password">Senha</string>
     <string name="login_button">Entrar</string>
     <string name="login_failure">Usuário ou senha incorretos!</string>
+    <string name="logo_toolbar">logo_toolbar</string>
+    <string name="search">Pesquisar</string>
 </resources>

@@ -3,19 +3,14 @@ package br.com.ioasys.teste.ui.home
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import br.com.ioasys.teste.R
 
-
 class HomeFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
 
     private lateinit var viewModel: HomeViewModel
 
@@ -23,17 +18,40 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Set the login status bar color.
+        // Set app status bar color.
         activity?.window?.statusBarColor =
-            ContextCompat.getColor(context as Context, R.color.night_blue)
+            ContextCompat.getColor(context as Context, R.color.dark_pink)
+
+        // Show app toolbar.
+        (activity as AppCompatActivity).supportActionBar?.show()
+
+        // Set up toolbar options.
+        setHasOptionsMenu(true)
 
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.options, menu)
+
+        // Configure SearchView functionalities.
+        (menu.findItem(R.id.search).actionView as SearchView)
+            .setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    android.util.Log.i("TESTESEARCH", "AEHO")
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?) = false
+        })
     }
 
 }

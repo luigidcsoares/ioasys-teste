@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import br.com.ioasys.teste.R
@@ -24,6 +25,9 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Hide app toolbar.
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
@@ -37,13 +41,18 @@ class LoginFragment : Fragment() {
         val emailField = activity?.findViewById<TextInputEditText>(R.id.login_email)
         val passwordField = activity?.findViewById<TextInputEditText>(R.id.login_password)
 
-        activity?.findViewById<Button>(R.id.login_button)?.setOnClickListener {
+        val loginButton = activity?.findViewById<Button>(R.id.login_button)
+        loginButton?.setOnClickListener {
             viewModel.auth(AuthRequest(
                 emailField?.text.toString(),
                 passwordField?.text.toString()
             )).observe(activity!!, Observer<AuthResponse> {
                 if (it.success) {
-                    findNavController().navigate(R.id.action_login)
+                    // Prevent app crashing with multiple clicks.
+                    val navController = findNavController()
+                    if (navController.currentDestination?.id == R.id.login_fragment) {
+                        navController.navigate(R.id.action_login)
+                    }
                 } else {
                     Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
                 }

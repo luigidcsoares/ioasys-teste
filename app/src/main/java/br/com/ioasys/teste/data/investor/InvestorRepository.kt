@@ -20,7 +20,7 @@ object InvestorRepository {
 
         call.enqueue(object: Callback<AuthResponse> {
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                android.util.Log.e("RequestError", t.localizedMessage)
+                android.util.Log.e("RequestError", t.message)
             }
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
