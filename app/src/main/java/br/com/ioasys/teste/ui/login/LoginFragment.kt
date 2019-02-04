@@ -19,7 +19,10 @@ import com.google.android.material.textfield.TextInputEditText
 
 class LoginFragment : Fragment() {
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, Injector.provideLoginViewModelFactory())
+            .get(LoginViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +36,6 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        // Create the view model using a factory.
-        viewModel = ViewModelProviders.of(this, Injector.provideLoginViewModelFactory())
-            .get(LoginViewModel::class.java)
 
         val emailField = activity?.findViewById<TextInputEditText>(R.id.login_email)
         val passwordField = activity?.findViewById<TextInputEditText>(R.id.login_password)
