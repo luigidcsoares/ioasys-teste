@@ -11,9 +11,7 @@ object EnterpriseRepository {
         val call = service.search(name)
 
         call.enqueue(object: Callback<EnterpriseList> {
-            override fun onFailure(call: Call<EnterpriseList>, t: Throwable) {
-                android.util.Log.e("SearchError", t.localizedMessage)
-            }
+            override fun onFailure(call: Call<EnterpriseList>, t: Throwable) { }
 
             override fun onResponse(call: Call<EnterpriseList>, response: Response<EnterpriseList>) {
                 android.util.Log.i("TESTESEARCH", response.body().toString())

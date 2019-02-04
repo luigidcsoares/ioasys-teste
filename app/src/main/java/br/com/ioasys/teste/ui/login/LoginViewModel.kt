@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.investor.InvestorRepository
 
-@Suppress("UNCHECKED_CAST")
 class LoginViewModel(private val investorRepository: InvestorRepository)
     : ViewModel() {
 

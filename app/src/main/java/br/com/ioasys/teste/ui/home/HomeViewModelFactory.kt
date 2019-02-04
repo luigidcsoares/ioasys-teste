@@ -9,5 +9,5 @@ class HomeViewModelFactory(private val enterpriseRepository: EnterpriseRepositor
     : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            HomeViewModel() as T
+            HomeViewModel(enterpriseRepository) as T
 }

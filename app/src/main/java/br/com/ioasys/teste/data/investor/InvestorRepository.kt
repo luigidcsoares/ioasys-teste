@@ -19,9 +19,7 @@ object InvestorRepository {
         val authResponse = MutableLiveData<AuthResponse>()
 
         call.enqueue(object: Callback<AuthResponse> {
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                android.util.Log.e("RequestError", t.message)
-            }
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) { }
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 authResponse.value = response.body() ?: AuthResponse(

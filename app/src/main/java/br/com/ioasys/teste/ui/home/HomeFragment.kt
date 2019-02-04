@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import br.com.ioasys.teste.R
+import br.com.ioasys.teste.utils.Injector
 
 class HomeFragment : Fragment() {
 
@@ -34,8 +35,8 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProviders.of(this, Injector.provideHomeViewModelFactory())
+            .get(HomeViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         (menu.findItem(R.id.search).actionView as SearchView)
             .setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    android.util.Log.i("TESTESEARCH", "AEHO")
+                    query?.let { viewModel.search(it) }
                     return true
                 }
 
