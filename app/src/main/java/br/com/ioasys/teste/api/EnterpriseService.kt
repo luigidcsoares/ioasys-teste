@@ -1,8 +1,8 @@
 package br.com.ioasys.teste.api
 
-import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.auth.AuthResponse
 import br.com.ioasys.teste.data.enterprise.EnterpriseList
+import br.com.ioasys.teste.data.investor.Investor
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface EnterpriseService {
 
     @POST("users/auth/sign_in")
-    fun auth(@Body authRequest: AuthRequest): Call<AuthResponse>
+    fun auth(@Body investor: Investor): Call<AuthResponse>
 
     @GET("enterprises")
     fun search(@Query("name") name: String): Call<EnterpriseList>

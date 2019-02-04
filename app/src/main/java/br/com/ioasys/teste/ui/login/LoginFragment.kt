@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import br.com.ioasys.teste.R
-import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.auth.AuthResponse
+import br.com.ioasys.teste.data.investor.Investor
 import br.com.ioasys.teste.utils.Injector
 import com.google.android.material.textfield.TextInputEditText
 
@@ -43,10 +43,11 @@ class LoginFragment : Fragment() {
 
         val loginButton = activity?.findViewById<Button>(R.id.login_button)
         loginButton?.setOnClickListener {
-            viewModel.auth(AuthRequest(
-                emailField?.text.toString(),
-                passwordField?.text.toString()
-            )).observe(activity!!, Observer<AuthResponse> {
+            viewModel.auth(Investor(
+                email = emailField?.text.toString(),
+                password = passwordField?.text.toString()
+            )
+            ).observe(activity!!, Observer<AuthResponse> {
                 if (it.success) {
                     // Prevent app crashing with multiple clicks.
                     val navController = findNavController()

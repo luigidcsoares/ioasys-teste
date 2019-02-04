@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.ioasys.teste.api.EnterpriseInterceptor
 import br.com.ioasys.teste.api.EnterpriseService
-import br.com.ioasys.teste.data.auth.AuthRequest
 import br.com.ioasys.teste.data.auth.AuthResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,9 +11,9 @@ import retrofit2.Response
 
 object InvestorRepository {
 
-    fun auth(authRequest: AuthRequest): LiveData<AuthResponse> {
+    fun auth(investor: Investor): LiveData<AuthResponse> {
         val service = EnterpriseService.retrofit
-        val call = service.auth(authRequest)
+        val call = service.auth(investor)
 
         val authResponse = MutableLiveData<AuthResponse>()
 
