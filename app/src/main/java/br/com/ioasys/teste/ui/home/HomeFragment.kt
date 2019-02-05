@@ -8,8 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import br.com.ioasys.teste.CustomSearchView
 import br.com.ioasys.teste.R
 import br.com.ioasys.teste.utils.Injector
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -35,23 +39,23 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options, menu)
 
-        // Configure SearchView functionalities.
-        (menu.findItem(R.id.search).actionView as SearchView)
-            .setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let { viewModel.search(it) }
-                    return true
+        // Configure SearchView.
+        val searchView = menu.findItem(R.id.search).actionView as CustomSearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                android.util.Log.i("SEARCH", query)
+                CoroutineScope(Dispatchers.Main).launch {
+                    android.util.Log.i("SEARCH", viewModel.search(query)?.enterprises?.size.toString())
                 }
 
-                override fun onQueryTextChange(newText: String?) = false
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?) = true
         })
     }
 

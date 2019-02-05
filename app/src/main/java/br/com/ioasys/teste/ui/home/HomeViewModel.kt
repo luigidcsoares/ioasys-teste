@@ -6,5 +6,5 @@ import br.com.ioasys.teste.data.enterprise.EnterpriseRepository
 class HomeViewModel(private val enterpriseRepository: EnterpriseRepository)
     : ViewModel() {
 
-    fun search(name: String) = enterpriseRepository.search(name)
+    suspend fun search(name: String?) = enterpriseRepository.search(name).value
 }

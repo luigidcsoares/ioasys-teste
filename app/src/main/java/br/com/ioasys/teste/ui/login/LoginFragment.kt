@@ -41,22 +41,20 @@ class LoginFragment : Fragment() {
 
         activity?.findViewById<Button>(R.id.login_button)
             ?.setOnClickListener {
-                CoroutineScope(Dispatchers.IO).launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     val success = viewModel.auth(Investor(
                         email = emailField?.text.toString(),
                         password = passwordField?.text.toString())
                     )
 
-                    withContext(Dispatchers.Main) {
-                        if (success) {
-                            // Prevent app crashing with multiple clicks.
-                            val navController = findNavController()
-                            if (navController.currentDestination?.id == R.id.login_fragment) {
-                                navController.navigate(R.id.action_login)
-                            }
-                        } else {
-                            Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
+                    if (success) {
+                        // Prevent app crashing with multiple clicks.
+                        val navController = findNavController()
+                        if (navController.currentDestination?.id == R.id.login_fragment) {
+                            navController.navigate(R.id.action_login)
                         }
+                    } else {
+                        Toast.makeText(activity, getString(R.string.login_failure), Toast.LENGTH_LONG).show()
                     }
                 }
             }

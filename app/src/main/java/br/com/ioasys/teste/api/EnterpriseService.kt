@@ -6,7 +6,6 @@ import br.com.ioasys.teste.data.investor.Investor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +20,7 @@ interface EnterpriseService {
     fun authAsync(@Body investor: Investor): Deferred<Response<AuthResponse>>
 
     @GET("enterprises")
-    fun search(@Query("name") name: String): Call<EnterpriseList>
+    fun searchAsync(@Query("name") name: String?): Deferred<EnterpriseList>
 
     // A singleton object for Enterprise Retrofit service.
     companion object {
