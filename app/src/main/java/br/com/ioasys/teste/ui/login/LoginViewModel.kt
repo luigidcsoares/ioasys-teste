@@ -7,5 +7,6 @@ import br.com.ioasys.teste.data.investor.InvestorRepository
 class LoginViewModel(private val investorRepository: InvestorRepository)
     : ViewModel() {
 
-    fun auth(investor: Investor) = investorRepository.auth(investor)
+//     In the future, we may get investor data from auth call.
+    suspend fun auth(investor: Investor) = investorRepository.auth(investor).success
 }
