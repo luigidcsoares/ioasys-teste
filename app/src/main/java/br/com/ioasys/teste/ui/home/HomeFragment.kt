@@ -8,13 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.ioasys.teste.CustomSearchView
 import br.com.ioasys.teste.R
-import br.com.ioasys.teste.data.enterprise.Enterprise
-import br.com.ioasys.teste.data.enterprise.EnterpriseType
 import br.com.ioasys.teste.databinding.HomeFragmentBinding
 import br.com.ioasys.teste.utils.Injector
 import kotlinx.coroutines.CoroutineScope
@@ -42,12 +37,10 @@ class HomeFragment : Fragment() {
         // Set up toolbar options.
         setHasOptionsMenu(true)
 
-        return HomeFragmentBinding.inflate(inflater, container, false).run {
-            adapter = EnterprisesAdapter(listOf(Enterprise(
-                1, "teste", "nenhuma", "Brazil", "Empresa 1",
-                EnterpriseType(1, "Negócios")
-            )))
-            root
+        return HomeFragmentBinding.inflate(inflater, container, false).let {
+            it.adapter = EnterprisesAdapter(emptyList())
+            it.setLifecycleOwner(this)
+            it.root
         }
     }
 
