@@ -13,13 +13,12 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <ImageView
-            android:id="@+id/logo_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/logo_toolbar"
-            app:srcCompat="@drawable/logo_nav"/>
+    <ImageView android:id="@+id/logo_toolbar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:contentDescription="@string/logo_toolbar"
+               app:srcCompat="@drawable/logo_nav"/>
 
 </androidx.appcompat.widget.Toolbar>
 

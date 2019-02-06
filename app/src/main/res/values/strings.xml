@@ -9,4 +9,5 @@
     <string name="login_failure">Usuário ou senha incorretos!</string>
     <string name="logo_toolbar">logo_toolbar</string>
     <string name="search">Pesquisar</string>
+    <string name="enterprise_logo">Logo Empresa</string>
 </resources>

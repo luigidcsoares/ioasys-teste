@@ -13,4 +13,7 @@
     <color name="charcoal_grey">#383743</color>
     <color name="beige">#ebe9d7</color>
     <color name="night_blue">#0d0430</color>
+
+    <color name="enterprise_name">#1a0e49</color>
+    <color name="enterprise_text">#8d8d8c</color>
 </resources>

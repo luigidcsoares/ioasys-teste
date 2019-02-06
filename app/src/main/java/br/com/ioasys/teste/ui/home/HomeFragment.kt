@@ -8,8 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.ioasys.teste.CustomSearchView
 import br.com.ioasys.teste.R
+import br.com.ioasys.teste.data.enterprise.Enterprise
+import br.com.ioasys.teste.data.enterprise.EnterpriseType
+import br.com.ioasys.teste.databinding.HomeFragmentBinding
 import br.com.ioasys.teste.utils.Injector
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +42,13 @@ class HomeFragment : Fragment() {
         // Set up toolbar options.
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return HomeFragmentBinding.inflate(inflater, container, false).run {
+            adapter = EnterprisesAdapter(listOf(Enterprise(
+                1, "teste", "nenhuma", "Brazil", "Empresa 1",
+                EnterpriseType(1, "Negócios")
+            )))
+            root
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -47,9 +59,8 @@ class HomeFragment : Fragment() {
         val searchView = menu.findItem(R.id.search).actionView as CustomSearchView
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                android.util.Log.i("SEARCH", query)
                 CoroutineScope(Dispatchers.Main).launch {
-                    android.util.Log.i("SEARCH", viewModel.search(query)?.enterprises?.size.toString())
+
                 }
 
                 return true
