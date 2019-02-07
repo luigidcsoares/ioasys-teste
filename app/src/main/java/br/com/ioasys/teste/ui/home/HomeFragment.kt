@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import br.com.ioasys.teste.CustomSearchView
 import br.com.ioasys.teste.R
 import br.com.ioasys.teste.data.enterprise.EnterpriseList
@@ -33,14 +35,24 @@ class HomeFragment : Fragment() {
         activity?.window?.statusBarColor =
             ContextCompat.getColor(context as Context, R.color.dark_pink)
 
-        // Show app toolbar.
-        (activity as AppCompatActivity).supportActionBar?.show()
+        // Set up app toolbar.
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            activity?.findViewById<ImageView>(R.id.logo_toolbar)?.visibility = View.VISIBLE
+            title = ""
+            show()
+        }
 
         // Set up toolbar options.
         setHasOptionsMenu(true)
 
         return HomeFragmentBinding.inflate(inflater, container, false).let {
-            it.adapter = EnterprisesAdapter(mutableListOf())
+            it.adapter = EnterprisesAdapter(mutableListOf(), object: EnterprisesAdapter.OnItemClickListener {
+                override fun onItemClick(id: Int) {
+                    // Navigate to details page sending enterprise id.
+                    findNavController().navigate(HomeFragmentDirections.actionShow(id))
+                }
+            })
+
             it.setLifecycleOwner(this)
 
             // Observe data updates.

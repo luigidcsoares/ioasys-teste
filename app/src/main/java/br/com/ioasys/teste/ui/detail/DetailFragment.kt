@@ -6,11 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 
-import br.com.ioasys.teste.R
+import br.com.ioasys.teste.databinding.DetailFragmentBinding
 import br.com.ioasys.teste.utils.Injector
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment() {
+
+    private val args by navArgs<DetailFragmentArgs>()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, Injector.provideDetailViewModelFactory())
@@ -20,8 +26,17 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.detail_fragment, container, false)
-    }
+    ): View? =
+        DetailFragmentBinding.inflate(inflater, container, false).let {
+            it.setLifecycleOwner(this)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                it.description = viewModel.show(args.id).description
+            }
+
+            it.root
+        }
 
 }
+
+

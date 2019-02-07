@@ -9,7 +9,6 @@
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         app:collapseIcon="@drawable/ic_menu_back"
-        app:title=""
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 

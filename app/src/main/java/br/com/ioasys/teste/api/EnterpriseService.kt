@@ -1,7 +1,9 @@
 package br.com.ioasys.teste.api
 
 import br.com.ioasys.teste.data.auth.AuthResponse
+import br.com.ioasys.teste.data.enterprise.Enterprise
 import br.com.ioasys.teste.data.enterprise.EnterpriseList
+import br.com.ioasys.teste.data.enterprise.EnterpriseShowResponse
 import br.com.ioasys.teste.data.investor.Investor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -9,10 +11,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface EnterpriseService {
 
@@ -21,6 +20,9 @@ interface EnterpriseService {
 
     @GET("enterprises")
     fun searchAsync(@Query("name") name: String?): Deferred<EnterpriseList>
+
+    @GET("enterprises/{id}")
+    fun showAsync(@Path("id") id: Int): Deferred<EnterpriseShowResponse>
 
     // A singleton object for Enterprise Retrofit service.
     companion object {

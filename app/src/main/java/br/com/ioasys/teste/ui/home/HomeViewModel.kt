@@ -10,7 +10,5 @@ class HomeViewModel(private val repository: EnterpriseRepository)
 
     val enterprises by lazy { MutableLiveData<EnterpriseList>() }
 
-    suspend fun search(name: String?) {
-        enterprises.value = repository.search(name).value
-    }
+    suspend fun search(name: String?) { enterprises.value = repository.search(name).value }
 }

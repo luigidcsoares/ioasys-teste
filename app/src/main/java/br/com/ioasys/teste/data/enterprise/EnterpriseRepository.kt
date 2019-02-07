@@ -10,4 +10,7 @@ object EnterpriseRepository {
             EnterpriseService.retrofit.searchAsync(name).await().let {
                 MutableLiveData<EnterpriseList>().apply { value = it }
             }
+
+    suspend fun show(id: Int): Enterprise = EnterpriseService.retrofit.showAsync(id).await().enterprise
+
 }
