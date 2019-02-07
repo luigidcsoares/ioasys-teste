@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.ioasys.teste.data.enterprise.Enterprise
 import br.com.ioasys.teste.databinding.EnterpriseListItemBinding
 
-class EnterprisesAdapter(private val enterprises: List<Enterprise>)
+class EnterprisesAdapter(private val enterprises: MutableList<Enterprise>)
     : RecyclerView.Adapter<EnterprisesAdapter.EnterpriseViewHolder>() {
 
     class EnterpriseViewHolder(private val binding: EnterpriseListItemBinding)
@@ -30,4 +30,12 @@ class EnterprisesAdapter(private val enterprises: List<Enterprise>)
         holder.bind(enterprises[position])
     }
 
+    fun setData(list: List<Enterprise>) {
+        enterprises.apply {
+            clear()
+            addAll(list)
+        }
+
+        notifyDataSetChanged()
+    }
 }

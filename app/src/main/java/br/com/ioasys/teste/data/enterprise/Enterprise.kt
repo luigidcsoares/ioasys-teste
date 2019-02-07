@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class Enterprise(
     val id: Int,
     val description: String,
-    val city: String,
     val country: String,
     @SerializedName("enterprise_name") val name: String,
     @SerializedName("enterprise_type") val type: EnterpriseType

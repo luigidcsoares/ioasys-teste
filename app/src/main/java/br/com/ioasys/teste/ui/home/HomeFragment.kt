@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import br.com.ioasys.teste.CustomSearchView
 import br.com.ioasys.teste.R
+import br.com.ioasys.teste.data.enterprise.EnterpriseList
 import br.com.ioasys.teste.databinding.HomeFragmentBinding
 import br.com.ioasys.teste.utils.Injector
 import kotlinx.coroutines.CoroutineScope
@@ -38,8 +40,14 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         return HomeFragmentBinding.inflate(inflater, container, false).let {
-            it.adapter = EnterprisesAdapter(emptyList())
+            it.adapter = EnterprisesAdapter(mutableListOf())
             it.setLifecycleOwner(this)
+
+            // Observe data updates.
+            viewModel.enterprises.observe(this, Observer<EnterpriseList> {
+                    data -> it.adapter?.setData(data.enterprises)
+            })
+
             it.root
         }
     }
@@ -51,13 +59,9 @@ class HomeFragment : Fragment() {
         // Configure SearchView.
         val searchView = menu.findItem(R.id.search).actionView as CustomSearchView
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                CoroutineScope(Dispatchers.Main).launch {
 
-                }
-
-                return true
-            }
+            override fun onQueryTextSubmit(query: String?) =
+                CoroutineScope(Dispatchers.Main).launch { viewModel.search(query) }.run { true }
 
             override fun onQueryTextChange(newText: String?) = true
         })

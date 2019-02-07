@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.ioasys.teste.data.enterprise.EnterpriseRepository
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(private val enterpriseRepository: EnterpriseRepository)
+class HomeViewModelFactory(private val repository: EnterpriseRepository)
     : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            HomeViewModel(enterpriseRepository) as T
+            HomeViewModel(repository) as T
 }
